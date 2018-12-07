@@ -9,7 +9,7 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json())
 ```
 
-If you want webhook request validation you might also want to configure `verify` for the `body-parser` middleware, see (Request validation)[#Request validation].
+If you want webhook request validation you might also want to configure `verify` for the `body-parser` middleware, see [Request validation](#Request validation).
 
 ## Receipt uploading
 
