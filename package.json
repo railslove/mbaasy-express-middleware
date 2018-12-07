@@ -1,0 +1,38 @@
+{
+  "name": "mbaasy-express-middleware",
+  "version": "0.1.0",
+  "description": "Middlware for Express to interact with the Mbaasy In-App-Purchase validation service",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm test",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/railslove/mbaasy-express-middleware.git"
+  },
+  "keywords": [
+    "IAP",
+    "In-App-Purchase",
+    "Mbaasy",
+    "Express",
+    "Node"
+  ],
+  "author": "Railslove GmbH",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/railslove/mbaasy-express-middleware/issues"
+  },
+  "homepage": "https://github.com/railslove/mbaasy-express-middleware#readme",
+  "peerDependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  },
+  "dependencies": {
+    "debug": "^4.1.0"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0",
+    "prettier-eslint": "^8.8.2"
+  }
+}
