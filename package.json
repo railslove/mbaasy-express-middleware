@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "npm test",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "jsdocs": "jsdoc -c ./.jsdocrc.json"
   },
   "repository": {
     "type": "git",
@@ -36,6 +37,7 @@
     "eslint-config-prettier": "^3.3.0",
     "eslint-plugin-prettier": "^3.0.0",
     "jest": "^23.6.0",
+    "jsdoc": "^3.5.5",
     "prettier": "^1.15.3"
   }
 }

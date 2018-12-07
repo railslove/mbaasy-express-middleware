@@ -4,8 +4,8 @@ const debug = require('debug')('mbaasy')
 /**
  * Creates verifier function that can verify if a webhook request was actually made by Mbaasy and is unaltered
  * based on comparing the X-SHA256-Digest in the header of the request
- * with a locally computed HMAC digest of the request body, with the same secret (MBAASY_WEBHOOK_HMAC_KEY)
- * @param  {String} webhookPath - the path under which the webhook is mounted so only requests to this path are validated
+ * with a locally computed HMAC digest of the request body, with the same secret (`process.env.MBAASY_WEBHOOK_HMAC_KEY`)
+ * @param  {String} webhookPath - the path under which the webhook is mounted so only requests to this path are validated, e.g. `'/mbaasy/webhook/path'`
  * @return {Function} - returns the actual verification function
  */
 function webhookVerifier(webhookPath) {

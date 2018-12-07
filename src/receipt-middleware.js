@@ -4,6 +4,15 @@ const debug = require('debug')('mbaasy')
 
 const mbaasyRouter = express.Router()
 
+/**
+ * Middleware for receiving IAP receipts from your clients and proxying them to Mbaasy's Client API
+ * @param {Object} middlewareOptions
+ * @param {Boolean} [middlewareOptions.android] - should the middleware provide an `/android` endpoint?
+ * @param {Boolean} [middlewareOptions.ios] - should the middleware provide an `/ios` endpoint?
+ * @param {Function} [middlewareOptions.userIdentifier] - function that receives the current `req` returns the user identifier based on that
+ * @param {Function} [middlewareOptions.metadata] - function that receives the current `req` returns additional metadata based on that
+ * @returns {Function} the middleware function
+ */
 function receiptMiddleware(middlewareOptions) {
   if (!process.env.MBAASY_CLIENT_API_ACCESS_TOKEN) {
     throw new Error('MBAASY_CLIENT_API_ACCESS_TOKEN env var is missing')
@@ -31,15 +40,6 @@ const MBAASY_ENDPOINTS = {
   ios: `${MBAASY_BASE_URL}/client/itunes_connect/receipts`
 }
 
-/**
- * Middleware for receiving IAP receipts from your clients and proxying them to Mbaasy's Client API
- * @param {String} platform - either 'ios' or 'android'
- * @param {Object} middlewareOptions
- * @param {Function} [middlewareOptions.userIdentifier] - function that receives the current `req` returns the user identifier based on that
- * @param {Function} [middlewareOptions.metadta] - function that receives the current `req` returns additional metadata based on that
- * @param {Function} [errorHandler] - function that is called in case of an error with `(err, res)`
- * @returns {Function} the middleware function
- */
 function receiptRequestHandler(platform, middlewareOptions = {}) {
   return function(req, res, next) {
     debug('incoming request', platform, req.body)
@@ -72,13 +72,6 @@ function receiptRequestHandler(platform, middlewareOptions = {}) {
   }
 }
 
-/**
- * Function that builds the dynamic part of the request body for Mbaasy
- * @param  {Object} req - request object
- * @param  {String} platform - 'android' or 'ios'
- * @param  {String} inputFormat - the format of the receipt data in the request body
- * @returns {Object}
- */
 const _mbaasyRequestBodyFor = function(
   req,
   platform,
