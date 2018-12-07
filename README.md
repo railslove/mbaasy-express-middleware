@@ -1,4 +1,4 @@
-This provides multipe express middleware to help you integrate the [Mbaasy](https://mbaasy.com/) In-App-Purchase validation server into your express app.
+This provides two express middleware to help you integrate the [Mbaasy](https://mbaasy.com/) In-App-Purchase validation server into your express app.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 
 If you want webhook request validation you might also want to configure `verify` for the `body-parser` middleware, see [Request validation](#request-validation).
 
-## Receipt uploading
+## Uploading IAP Receipts
 
 Since you don't want to put your Mbaasy Client API Access Token directly into your mobile app, this is a "proxy middleware" to receive receipts from your mobile clients, add some additional metadata, and upload it to Mbaasy's Client API endpoints for [iOS](https://docs.mbaasy.com/client_api/apple_app_store/) and [Android](
 https://docs.mbaasy.com/client_api/google_play/)
@@ -36,7 +36,29 @@ app.use(
 )
 ```
 
-## Webhooks receving
+This will add two `POST` API endpoints to your backend:
+* https://mycompany.com/api/iap_purchases/android
+* https://mycompany.com/api/iap_purchases/ios
+
+The expected request body should look like this:
+
+```
+{
+  // purchase object with a structure inspired by https://github.com/dooboolab/react-native-iap#purchase
+  "purchase": {
+    // android
+    "purchase_data": "",
+    "purchase_signature: "",
+    // ios
+    "receipt": ""
+  },
+  // additional fields for iOS
+  "country_code": "xx",
+  "identifier_for_vendor": "xxxxx"
+}
+```
+
+## Receiving Webhooks
 
 The second middleware let's you mount an API endoint into your express app to receive [Mbaasy webhook requests](https://docs.mbaasy.com/integrations/webhooks/). You will need to supply a `webhookHandler` function that receives and processes the [Mbaasy event payload](https://docs.mbaasy.com/integrations/event_payloads/) (e.g. updates the user record in your backend's database). 
 
